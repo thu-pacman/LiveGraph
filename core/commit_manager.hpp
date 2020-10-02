@@ -166,6 +166,7 @@ namespace livegraph
                     check_unfinished_epoch_id();
                     cv_client[local_client_mutex ^ 1].notify_all();
                 }
+                std::unique_lock<std::mutex> client_lock(client_mutex[local_client_mutex]);
 
                 global_client_mutex ^= 1;
 
@@ -226,6 +227,7 @@ namespace livegraph
                 lock.unlock();
                 seq_front[local_client_mutex] += num_txns;
                 cv_client[local_client_mutex].notify_all();
+                client_lock.unlock();
 
                 --num_unfinished;
             }
