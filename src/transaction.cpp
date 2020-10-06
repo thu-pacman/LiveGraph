@@ -198,10 +198,10 @@ std::string_view Transaction::get_vertex(vertex_t vertex_id)
         vertex_block = graph.block_manager.convert<VertexBlockHeader>(pointer);
     }
 
-    if (!(batch_update || !trace_cache))
-    {
-        vertex_ptr_cache[vertex_id] = pointer;
-    }
+    // if (!(batch_update || !trace_cache))
+    //{
+    //    vertex_ptr_cache[vertex_id] = pointer;
+    //}
 
     if (!vertex_block || vertex_block->get_length() == vertex_block->TOMBSTONE)
         return std::string_view();
@@ -557,7 +557,7 @@ std::string_view Transaction::get_edge(vertex_t src, label_t label, vertex_t dst
         else
         {
             pointer = locate_edge_block(src, label);
-            edge_ptr_cache.emplace_hint(cache_iter, std::make_pair(src, label), pointer);
+            // edge_ptr_cache.emplace_hint(cache_iter, std::make_pair(src, label), pointer);
         }
     }
 
@@ -619,7 +619,7 @@ EdgeIterator Transaction::get_edges(vertex_t src, label_t label, bool reverse)
         else
         {
             pointer = locate_edge_block(src, label);
-            edge_ptr_cache.emplace_hint(cache_iter, std::make_pair(src, label), pointer);
+            // edge_ptr_cache.emplace_hint(cache_iter, std::make_pair(src, label), pointer);
         }
     }
 
